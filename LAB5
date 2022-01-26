@@ -1,5 +1,27 @@
 import numpy as np
 
+class Hamming31:
+
+    @staticmethod
+    def encode(text: str) -> np.ndarray:
+        return np.asanyarray([3 * [int(bit)] for bit in text])
+
+    @staticmethod
+    def decode(code_matrix: np.ndarray) -> str:
+
+        def decode_code(code: np.ndarray) -> str:
+            return '0' if np.count_nonzero(code != [0, 0, 0]) <= 1 else '1'
+
+        return ''.join(np.apply_along_axis(decode_code, 1, code_matrix))
+
+
+def h31_encode(text: str) -> np.ndarray:
+    return Hamming31.encode(text)
+
+
+def h31_decode(code_matrix: np.ndarray) -> str:
+    return Hamming31.decode(code_matrix)
+
 class Hamming84:
 
     @staticmethod
